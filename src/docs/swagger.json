@@ -33,62 +33,45 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"PaginationType": {
+			"ProductResponse": {
 				"properties": {
 					"message": {
 						"type": "string"
 					},
 					"data": {
-						"items": {
-							"$ref": "#/components/schemas/ProductType"
-						},
-						"type": "array"
+						"$ref": "#/components/schemas/ProductType"
+					}
+				},
+				"required": [
+					"message",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ProductCreateRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
 					},
-					"currentPage": {
+					"price": {
 						"type": "number",
 						"format": "double"
 					},
-					"totalPage": {
-						"type": "number",
-						"format": "double"
+					"category": {
+						"type": "string"
 					},
-					"limit": {
-						"type": "number",
-						"format": "double"
-					},
-					"totalItem": {
+					"stock": {
 						"type": "number",
 						"format": "double"
 					}
 				},
 				"required": [
-					"message",
-					"data",
-					"currentPage",
-					"totalPage",
-					"limit",
-					"totalItem"
+					"name",
+					"price",
+					"category",
+					"stock"
 				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"QueriesReqType": {
-				"properties": {
-					"filter": {
-						"type": "string"
-					},
-					"page": {
-						"type": "number",
-						"format": "double"
-					},
-					"limit": {
-						"type": "number",
-						"format": "double"
-					},
-					"sort": {
-						"type": "string"
-					}
-				},
 				"type": "object",
 				"additionalProperties": false
 			}
@@ -105,73 +88,21 @@
 	},
 	"paths": {
 		"/v1/products": {
-			"get": {
-				"operationId": "GetAllProducts",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaginationType"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "filter",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "limit",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "sort",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			},
 			"post": {
-				"operationId": "CreateProduct",
+				"operationId": "CreateItem",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ProductType"
+									"$ref": "#/components/schemas/ProductResponse"
 								}
 							}
 						}
 					},
 					"201": {
-						"description": "Created Product"
+						"description": "Created Success"
 					}
 				},
 				"security": [],
@@ -181,97 +112,11 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ProductType"
+								"$ref": "#/components/schemas/ProductCreateRequest"
 							}
 						}
 					}
 				}
-			}
-		},
-		"/v1/products/{id}": {
-			"get": {
-				"operationId": "GetProductById",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ProductType"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			},
-			"put": {
-				"operationId": "UpdateById",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ProductType"
-								}
-							}
-						}
-					},
-					"201": {
-						"description": "Updated Product!"
-					}
-				},
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ProductType"
-							}
-						}
-					}
-				}
-			},
-			"delete": {
-				"operationId": "DeleteById",
-				"responses": {
-					"204": {
-						"description": "No content"
-					}
-				},
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
 			}
 		}
 	},

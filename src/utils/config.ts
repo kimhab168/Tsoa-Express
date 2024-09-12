@@ -11,12 +11,9 @@ type Config = {
 // Function to load and validate environment variables
 function loadConfig(): Config {
   // Determine the environment and set the appropriate .env file
-  const env = process.env.NODE_ENV || "development"; // Fallback to "development"
-  const envPath = path.resolve(__dirname, `./configs/.env.${env}`);
-
-  console.log(`Loading environment from: ${envPath}`); // For debugging
-
-  dotenv.config({ path: envPath }); // Load .env file based on NODE_ENV
+  const env = process.env.NODE_ENV || "development";
+  const envPath = path.resolve(__dirname, `../configs/.env.${env}`);
+  dotenv.config({ path: envPath });
 
   // Define a schema for the environment variables
   const envVarsSchema = Joi.object({
@@ -29,7 +26,6 @@ function loadConfig(): Config {
 
   // Validate the environment variables
   const { value: envVars, error } = envVarsSchema.validate(process.env);
-
   if (error) {
     throw new Error(`Config validation error: ${error.message}`);
   }
