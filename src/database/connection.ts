@@ -1,4 +1,4 @@
-import configs from "@/utils/config";
+import configs from "@/config";
 import mongoose from "mongoose";
 export async function connectToDB() {
   try {

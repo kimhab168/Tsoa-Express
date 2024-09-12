@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import swaggerUi from "swagger-ui-express";
 
 import fs from "fs";
@@ -19,6 +19,12 @@ const app = express();
 // Global Middleware
 // ========================
 app.use(express.json()); // Help to get the json from request body
+//User log
+app.use((req: Request, _res: Response, next: NextFunction) => {
+  const requestTime = new Date().toISOString();
+  console.log(`[${requestTime}] ${req.method} ${req.url}`);
+  next(); //function used in middleware to pass control to the next middleware function in the stack
+});
 
 // ========================
 // Global API V1

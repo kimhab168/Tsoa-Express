@@ -11,6 +11,7 @@ export function globalError(
 ) {
   //Handle error
   if (error instanceof AppError) {
+    // if error is AppError
     const status = error.status;
     const errors = error.errors;
 

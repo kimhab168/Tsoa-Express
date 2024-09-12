@@ -27,6 +27,7 @@ export class InvalidInputError extends AppError {
     errors?: {};
   }) {
     super({ message, status: HTTP_STATUS_CODE.BAD_REQUEST, errors });
+    console.log(errors);
   }
 }
 

@@ -1,5 +1,5 @@
 import app from "./app";
-import configs from "@/utils/config";
+import configs from "@/config";
 import { connectToDB } from "./database/connection";
 
 async function runServer() {
